@@ -2,7 +2,6 @@ FROM maven:3-jdk-8
 
 RUN apt-get update && apt-get install -y \
 	git \
-	make \
 	wget \
 	zlib1g-dev \
 	zip \
@@ -21,8 +20,8 @@ RUN echo ". /root/docker_root/templates/.bashrc" >> ~/.bashrc
 # Install Node
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
 RUN apt-get install -y \
-	nodejs
-	
+	nodejs \
+	npm \
 
 # Install Gulp globally
 RUN npm install -g gulp
@@ -38,6 +37,7 @@ RUN npm install -g protractor
 # Bashmarks
 RUN git clone git://github.com/huyng/bashmarks.git && cd bashmarks && make install
 RUN echo "source ~/.local/bin/bashmarks.sh" >> ~/.bashrc
+RUN cd /var/www/default && s default && cd -
 
 # Test drivers: http://docs.seleniumhq.org/download/ | https://www.npmjs.com/package/selenium-webdriver
 # Chrome test driver | npm install chromedriver
